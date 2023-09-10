@@ -3,8 +3,8 @@ from colorama import Back, Fore, Style
 from packaging import version as ver_parser
 from termcolor import colored
 
-GITHUB_RELEASE_URL = "https://api.github.com/repos/skyzh/canvas_grab/releases/latest"
-VERSION = "2.2.1-alpha"
+GITHUB_RELEASE_URL = "https://api.github.com/repos/ThisisKUNMENG/canvas_grab/releases/latest"
+VERSION = "2.2.1-alpha-fudan"
 
 
 def check_latest_version():
@@ -22,7 +22,7 @@ def check_latest_version():
     elif ver_parser.parse(version) > ver_parser.parse(VERSION):
         print(f"You're using version {colored(VERSION, 'green')}, "
               f"but the latest release is {colored(version, 'green')}.")
-        print(f"Please visit {colored('https://github.com/skyzh/canvas_grab/releases', 'blue')} "
+        print(f"Please visit {colored('https://github.com/ThisisKUNMENG/canvas_grab/releases', 'blue')} "
               "to download the latest version.")
         print()
         print(version_obj.get("body", ""))

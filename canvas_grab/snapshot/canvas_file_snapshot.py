@@ -65,11 +65,14 @@ class CanvasFileSnapshot(Snapshot):
 
         for _, file in files.items():
             folder = normalize_path(folders[file.folder_id].full_name) + "/"
-            if folder.startswith("course files/"):
-                folder = folder[len("course files/"):]
-            snapshot_file = from_canvas_file(file)
-            filename = f'{folder}{normalize_path(snapshot_file.name, file_regex)}'
-            self.add_to_snapshot(filename, snapshot_file)
+            if "unfiled" in folder:
+                pass
+            else:
+                if folder.startswith("course files/"):
+                    folder = folder[len("course files/"):]
+                snapshot_file = from_canvas_file(file)
+                filename = f'{folder}{normalize_path(snapshot_file.name, file_regex)}'
+                self.add_to_snapshot(filename, snapshot_file)
 
         print(f'  {len(files)} files in total')
         yield (0.1, None, f'共 {len(files)} 个文件')

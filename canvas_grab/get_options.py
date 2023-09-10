@@ -9,8 +9,10 @@ import toml
 def greeting():
     # First, welcome our users
     print("Thank you for using canvas_grab!")
+    print("This is a dedicated tool for Fudan University students to download files from Elearning.")
+    print(f"If you are not a Fudan University student, please use the original canvas_grab at {colored('https://github.com/skyzh/canvas_grab', 'blue')}")
     print(
-        f'You are using version {VERSION}. If you have any questions, please file an issue at {colored("https://github.com/skyzh/canvas_grab/issues", "blue")}')
+        f'You are using version {VERSION}. If you have any questions, please file an issue at {colored("https://github.com/ThisisKUNMENG/canvas_grab/issues", "blue")}')
     print(
         f'You may review {colored("README.md", "green")} and {colored("LICENSE", "green")} shipped with this release')
     print(

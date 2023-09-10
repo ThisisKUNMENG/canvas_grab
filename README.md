@@ -1,35 +1,24 @@
-# canvas-grab
+# fdu elearning(canvas) grab
 
-**Looking for Maintainers**
+This is a fork version of [skyhz/canvas_grab](https://github.com/skyzh/canvas_grab/). For more information, please refer to the original repository.
 
-*As I no longer have access to Canvas systems, this project cannot be actively maintained by me. If you are interested in maintaining this project, please email me.*
-
-Grab all files on Canvas LMS to local directory.
-
-*Less is More.* In canvas_grab v2, we focus on stability and ease of use.
-Now you don't have to tweak dozens of configurations. We have a very
-simple setup wizard to help you get started!
-
-For legacy version, refer to [legacy](https://github.com/skyzh/canvas_grab/tree/legacy) branch.
+This is meant to be used by FDU students only.
 
 ## Getting Started
 
 1. Install Python
-2. Download canvas_grab source code. There are typically three ways of doing this.
-   * Go to [Release Page](https://github.com/skyzh/canvas_grab/releases) and download `{version}.zip`.
-   * Or `git clone https://github.com/skyzh/canvas_grab`.
-   * Use SJTU GitLab, see [Release Page](https://git.sjtu.edu.cn/iskyzh/canvas_grab/-/tags), or
-     visit https://git.sjtu.edu.cn/iskyzh/canvas_grab
+2. Download canvas_grab source code. 
+   * Go to [Release Page](https://github.com/ThisisKUNMENG/canvas_grab/releases) and download `{version}.zip`.
+   * Or `git clone https://github.com/ThisisKUNMENG/canvas_grab`.
 3. Run `./canvas_grab.sh` (Linux, macOS) or `.\canvas_grab.ps1` (Windows) in Terminal.
    Please refer to `Build and Run from Source` for more information.
-4. Get your API key at Canvas profile and you're ready to go!
-5. Please don't modify any file inside download folder (e.g take notes, add supplementary items). They will be overwritten upon each run.
+4. Ignore API key and enter your student ID and password.
+5. Please don't modify any file inside download folder (e.g. take notes, add supplementary items). They will be overwritten upon each run.
 
 You may interrupt the downloading process at any time. The program will automatically resume from where it stopped.
 
-To upgrade, just replace `canvas_grab` with a more recent version.
 
-If you have any questions, feel free to file an issue [here](https://github.com/skyzh/canvas_grab/issues).
+If you have any questions, feel free to file an issue [here](https://github.com/ThisisKUNMENG/canvas_grab/issues).
 
 ## Build and Run from Source
 
@@ -57,6 +46,8 @@ For Windows users:
     ```powershell
     .\canvas_grab.ps1
     ```
+   
+The script also support several command line arguments, please refer to `./canvas_grab.sh -h` or `.\canvas_grab.ps1 -h` for more information.
 
 ## Configure
 
@@ -66,20 +57,16 @@ re-configure, run `./configure.sh` or `./configure.ps1`.
 
 ## Common Issues
 
-* **Acquire API token** Access Token can be obtained at "Account - Settings - New Access Token".
-* **SJTU users** 请在[此页面](https://oc.sjtu.edu.cn/profile/settings#access_tokens_holder)内通过“创建新访问许可证”按钮生成访问令牌。
+* ~~**Acquire API token** Access Token can be obtained at "Account - Settings - New Access Token".~~
+* ~~**FDU users** 请在[此页面](https://elearning.fudan.edu.cn/profile/settings)内通过“创建新访问许可证”按钮生成访问令牌。~~
+  * 注意复旦Elearning虽然也有API token，但据本人测试，该token有效期即使设置为永久，也会在一段时间后失效，因此请使用账号密码登录。
 * **An error occurred** You'll see "An error occurred when processing this course" if there's no file in a course.
 * **File not available** This file might have been included in an unpublished unit. canvas_grab cannot bypass restrictions.
 * **No module named 'canvasapi'** You haven't installed the dependencies. Follow steps in "build and run from source" or download prebuilt binaries.
+  * 注意这里canvasapi库由本人进行了修改，因此在安装时请使用[此仓库](https://github.com/ThisisKUNMENG/canvasapi)内的canvasapi库。使用`pip install canvasapi`会导致安装的是原版canvasapi库，无法正常运行。使用`pip install -r requirements.txt`会正常安装canvasapi特供库。
 * **Error when checking update** It's normal if you don't have a stable connection to GitHub. You may regularly check updates by visiting this repo.
 * **Reserved escape sequence used** please use "/" as the path seperator instead of "\\".
 * **Duplicated files detected** There're two files of same name in same folder. You should download it from Canvas yourself.
-
-## Screenshot
-
-![image](https://user-images.githubusercontent.com/4198311/108496621-4673bf00-72e5-11eb-8978-8b8bdd4efea5.png)
-
-![gui](https://user-images.githubusercontent.com/4198311/113378330-4e755300-93a9-11eb-81a9-c494a8cc7488.png)
 
 ## Contributors
 
@@ -93,4 +80,5 @@ MIT
 Which means that we do not shoulder any responsibilities for, included but not limited to:
 
 1. API key leaking
-2. Users upload copyright material from website to the Internet
+2. Students' personal information, account and password leaking
+3. Users upload copyright material from website to the Internet
