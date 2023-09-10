@@ -12,7 +12,7 @@ This is meant to be used by FDU students only.
    * Or `git clone https://github.com/ThisisKUNMENG/canvas_grab`.
 3. Run `./canvas_grab.sh` (Linux, macOS) or `.\canvas_grab.ps1` (Windows) in Terminal.
    Please refer to `Build and Run from Source` for more information.
-4. Ignore API key and enter your student ID and password.
+4. Ignore API key (i.e. do not enter anything and press Enter) and enter your student ID and password.
 5. Please don't modify any file inside download folder (e.g. take notes, add supplementary items). They will be overwritten upon each run.
 
 You may interrupt the downloading process at any time. The program will automatically resume from where it stopped.
