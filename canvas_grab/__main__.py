@@ -20,6 +20,7 @@ def main():
     # Finally, log in and start synchronize
     canvas = config.endpoint.login()
     print(f'You are logged in as {colored(canvas.get_current_user(), "cyan")}')
+    session = config.endpoint.session
 
     courses = list(canvas.get_courses())
     available_courses, not_available = canvas_grab.utils.filter_available_courses(
@@ -66,7 +67,7 @@ def main():
         # start download
         transfer = canvas_grab.transfer.Transfer()
         transfer.transfer(
-            on_disk_path, f'{config.download_folder}/_canvas_grab_archive', plans)
+            on_disk_path, f'{config.download_folder}/_canvas_grab_archive', plans, session)
 
     if not noupdate:
         canvas_grab.version.check_latest_version()

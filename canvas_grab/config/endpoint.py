@@ -21,6 +21,7 @@ class Endpoint(Configurable, Interactable):
             'api_key': self.api_key,
             'account': self.account,
             'password': self.password,
+            'session': self.session
         }
 
     def from_config(self, config):

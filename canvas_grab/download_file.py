@@ -4,14 +4,19 @@ import time
 import requests
 from tqdm import tqdm
 from .utils import is_windows
+from .config.endpoint import Endpoint
 
 
 def current_milli_time():
     return round(time.time() * 1000)
 
 
-def download_file(url, desc, filename, file_size, verbose=False, req_timeout=(5, None)):
-    with requests.get(url, stream=True, timeout=req_timeout) as r:
+def download_file(url, desc, filename, file_size, verbose=False, req_timeout=(5, None), session=None):
+    if session is not None:
+        req = session
+    else:
+        req = requests
+    with req.get(url, stream=True, timeout=req_timeout) as r:
         r.raise_for_status()
         chunk_size = 1024
         if verbose:

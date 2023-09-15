@@ -17,10 +17,10 @@ def need_retrying(exception):
 
 
 @retry(retry_on_exception=need_retrying, stop_max_attempt_number=ATTEMPT, wait_fixed=1000)
-def download_file(url, desc, filename, file_size, verbose=False):
+def download_file(url, desc, filename, file_size, verbose=False, session=None):
     try:
         sys.stderr.flush()
-        yield from df(url, desc, filename, file_size, verbose, req_timeout=TIMEOUT)
+        yield from df(url, desc, filename, file_size, verbose, req_timeout=TIMEOUT, session=session)
         sys.stderr.flush()
     except KeyboardInterrupt:
         sys.stderr.flush()
@@ -38,14 +38,14 @@ class Transfer(object):
     def create_parent_folder(self, path):
         Path(path).parent.mkdir(parents=True, exist_ok=True)
 
-    def transfer(self, base_path, archive_base_path, plans):
-        for _ in self.yield_transfer(base_path, archive_base_path, plans):
+    def transfer(self, base_path, archive_base_path, plans, session=None):
+        for _ in self.yield_transfer(base_path, archive_base_path, plans, session):
             pass
 
     def sub_transfer_progress(self, of, total, download_progress):
         return 0.2 + (float(of) + download_progress) / total * 0.8
 
-    def yield_transfer(self, base_path, archive_base_path, plans):
+    def yield_transfer(self, base_path, archive_base_path, plans, session=None):
         yield (None, '传输文件中...', None)
         for idx, (op, key, plan) in enumerate(plans):
             path = f'{base_path}/{key}'
@@ -62,7 +62,7 @@ class Transfer(object):
                     continue
                 if isinstance(plan, SnapshotFile):
                     download_file_task = download_file(
-                        plan.url, f'({idx+1}/{len(plans)}) ' + truncate_name(plan.name), path, plan.size)
+                        plan.url, f'({idx+1}/{len(plans)}) ' + truncate_name(plan.name), path, plan.size, session=session)
                     for progress in download_file_task:
                         yield (self.sub_transfer_progress(idx, len(plans), progress), None, None)
                     apply_datetime_attr(

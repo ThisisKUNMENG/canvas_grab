@@ -4,7 +4,7 @@ from packaging import version as ver_parser
 from termcolor import colored
 
 GITHUB_RELEASE_URL = "https://api.github.com/repos/ThisisKUNMENG/canvas_grab/releases/latest"
-VERSION = "2.2.1-alpha-fudan"
+VERSION = "1.0.0-fudan"
 
 
 def check_latest_version():
