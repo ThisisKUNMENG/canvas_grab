@@ -51,12 +51,12 @@ class Transfer(object):
             path = f'{base_path}/{key}'
             archive_path = f'{archive_base_path}/{path}'
 
-            if op == 'add' or op == 'update':
+            if op == 'add' or op == 'update-force':
                 self.create_parent_folder(path)
                 file_obj = Path(path)
                 if file_obj.exists():
-                    self.create_parent_folder(archive_path)
-                    file_obj.replace(archive_path)
+                    os.remove(path)
+
                 if plan.url == '':
                     print(f'  {colored("? (not available)", "yellow")} {key}')
                     continue
@@ -81,7 +81,10 @@ class Transfer(object):
             if op == 'add':
                 print(f'  {colored("+", "green")} {key}')
                 yield (None, None, f'下载 {key}')
-            if op == 'update':
+            if op == 'update-force':
+                print(f'  {colored("=", "yellow")} {key}')
+                yield (None, None, f'忽略更新 {key}')
+            if op == 'update-force':
                 print(f'  {colored("=", "green")} {key}')
                 yield (None, None, f'更新 {key}')
             if op == 'delete':

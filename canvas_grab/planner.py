@@ -5,8 +5,9 @@ class Planner(object):
     """Planner generates a transfer plan from two snapshots
     """
 
-    def __init__(self, remove_local_file):
+    def __init__(self, remove_local_file, force_update):
         self.remove_local_file = remove_local_file
+        self.force_update = force_update
 
     def plan(self, snapshot_from, snapshot_to, file_filter):
         """plan a transfer
@@ -32,11 +33,17 @@ class Planner(object):
                 to_item = snapshot_to[key]
                 if isinstance(from_item, SnapshotFile):
                     if to_item.size != from_item.size or to_item.modified_at != from_item.modified_at:
-                        plans.append(('update', key, from_item))
+                        if self.force_update:
+                            plans.append(('update-force', key, from_item))
+                        else:
+                            plans.append(('update', key, from_item))
                 if isinstance(from_item, SnapshotLink):
                     content_length = len(from_item.content().encode('utf-8'))
                     if to_item.size != content_length:
-                        plans.append(('update', key, from_item))
+                        if self.force_update:
+                            plans.append(('update-force', key, from_item))
+                        else:
+                            plans.append(('update', key, from_item))
         for key, to_item in snapshot_to.items():
             if key not in snapshot_from_filter:
                 if self.remove_local_file:

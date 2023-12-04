@@ -15,6 +15,7 @@ class OrganizeMode(Configurable, Interactable):
     def __init__(self):
         self.mode = 'module'
         self.delete_file = False
+        self.force_update = True
 
     def get_snapshots(self, course):
         if self.mode == 'module_link':
@@ -41,12 +42,14 @@ class OrganizeMode(Configurable, Interactable):
     def to_config(self):
         return {
             'mode': self.mode,
-            'delete_file': self.delete_file
+            'delete_file': self.delete_file,
+            'force_update': self.force_update
         }
 
     def from_config(self, config):
         self.mode = config['mode']
         self.delete_file = config['delete_file']
+        self.force_update = config['force_update']
 
     def interact(self):
         choices = [
@@ -75,4 +78,14 @@ class OrganizeMode(Configurable, Interactable):
             'How to handle deleted files on Canvas',
             choices,
             default=find_choice(choices, self.delete_file)
+        ).unsafe_ask()
+        choices = [
+            questionary.Choice(
+                "Force update all existing files", True),
+            questionary.Choice("Do not update any existing files", False)
+        ]
+        self.force_update = questionary.select(
+            'How to handle files that are out-dated',
+            choices,
+            default=find_choice(choices, self.force_update)
         ).unsafe_ask()

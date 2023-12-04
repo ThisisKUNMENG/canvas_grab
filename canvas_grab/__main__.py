@@ -59,7 +59,7 @@ def main():
             break
 
         # generate transfer plan
-        planner = canvas_grab.planner.Planner(config.organize_mode.delete_file)
+        planner = canvas_grab.planner.Planner(config.organize_mode.delete_file, config.organize_mode.force_update)
         plans = planner.plan(
             canvas_snapshot, on_disk_snapshot, config.file_filter)
         print(colored(
